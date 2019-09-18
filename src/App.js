@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import './bootstrap.min.css';
 import Header from './components/Header';
-import NuevaCita from './components/NuevaCita';
-import ListaCitas from './components/ListaCitas'
+import NuevaCita from './components/NuevaJugador';
+import ListaCitas from './components/ListaJugador';
+
+
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
+
+
+import Menu from './pages/Menu'
+
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 class App extends Component {
   state = { 
     citas: []
   }
+
+  //local storage
 //cuando la aplicacion carge
   componentDidMount(){
     const citasLS = localStorage.getItem('citas');
@@ -49,16 +62,43 @@ class App extends Component {
 
   }
 
+  
+
+
+////////////////////
+
+
+
 
   render() {
+
+    
+
     return (
+
+      
+      
       <div class='container'>
+       
         <Header
         titulo ="Administrador de veterinaria"
         />
 
+
       <div className="row">
+        
         <div className="col-md-10 mx-auto">
+        <Router>
+        <div>
+          <Menu />
+ 
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+          </Switch>
+        </div>
+      </Router>
           <NuevaCita 
           crearNuevaCita= {this.crearNuevaCita}/>
         </div>
@@ -77,6 +117,5 @@ class App extends Component {
 
   }
   }
-
 
 export default App;
